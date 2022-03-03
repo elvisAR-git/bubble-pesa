@@ -1,3 +1,3 @@
-# Tenda
+# Bubble Pesa
 
-tender
+an MPESA plugin for bubble.io
