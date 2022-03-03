@@ -1,0 +1,79 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "Tenda api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "@powershell -Command $env:DEBUG='bubble-pesa'; nodemon app/app.js",
+    "start": "node app/app.js",
+    "build": "babel app -d dist --copy-files",
+    "start:prod": "node dist/app.js",
+    "prod": "npm run build && npm run start:prod"
+  },
+  "author": "unkown",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "compression": "^1.7.4",
+    "connect-livereload": "^0.6.1",
+    "connect-mongo": "^3.0.0",
+    "cors": "^2.8.5",
+    "debug": "^4.3.3",
+    "errorhandler": "^1.5.1",
+    "express": "^4.17.1",
+    "lodash": "^4.17.21",
+    "method-override": "^3.0.0",
+    "moment": "^2.29.1",
+    "money": "^0.2.0",
+    "mongoose": "^5.10.1",
+    "mongoose-autopopulate": "^0.9.1",
+    "morgan": "^1.9.1",
+    "node-cron": "^3.0.0",
+    "nodecron": "^0.2.0",
+    "promise": "^8.0.3",
+    "randomstring": "^1.1.5",
+    "request": "^2.88.0",
+    "spotify-audio-api": "^0.1.3",
+    "spotify-web-api-node": "^5.0.2",
+    "xml-js": "^1.6.11"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-node8": "^1.2.0",
+    "chai": "^4.2.0",
+    "config": "^3.0.1",
+    "debug": "^4.3.3",
+    "mocha": "^5.2.0",
+    "supertest": "^3.4.2"
+  },
+  "babel": {
+    "presets": [
+      "node8"
+    ]
+  },
+  "engines": {
+    "node": ">=12.0.0 <17.5.0"
+  },
+  "eslintConfig": {
+    "plugins": [
+      "node"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:node/recommended"
+    ],
+    "rules": {
+      "node/no-unsupported-features/es-syntax": 0,
+      "node/no-unsupported-features/es-builtins": 0
+    },
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 2018
+    }
+  }
+}
