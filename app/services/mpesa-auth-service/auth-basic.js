@@ -31,7 +31,6 @@ module.exports = class AuthBasic {
    * This method is used to request access token from mpesa
    */
   async requestAccessToken() {
-    console.log(mpesa);
     const url = mpesa.auth_url;
     const headers = this.getHeaders();
 
@@ -40,6 +39,7 @@ module.exports = class AuthBasic {
       const { access_token, expires_in } = response.data;
       return { access_token, expires_in, message: "access granted" };
     } catch (err) {
+      console.log(err);
       return err;
     }
   }
