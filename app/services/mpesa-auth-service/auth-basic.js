@@ -31,6 +31,7 @@ module.exports = class AuthBasic {
    * This method is used to request access token from mpesa
    */
   async requestAccessToken() {
+    console.log(mpesa);
     const url = mpesa.auth_url;
     const headers = this.getHeaders();
 
