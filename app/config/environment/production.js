@@ -1,14 +1,6 @@
 "use strict";
-const fs = require("fs");
-const path = require("path");
-const dbConfig = JSON.parse(
-  fs.readFileSync(path.join(__dirname, "db.json"), "utf8")
-);
-const mpesaConfig = JSON.parse(
-  fs.readFileSync(path.join(__dirname, "secrets.json"), "utf8")
-);
 
-let uri = dbConfig.remote_uri;
+let uri = process.env.PROD_DB;
 // Development specific configuration
 // ==================================
 module.exports = {
@@ -17,8 +9,8 @@ module.exports = {
     uri: uri,
   },
   mpesa: {
-    username: mpesaConfig.username,
-    password: mpesaConfig.password,
+    username: process.env.CLIENT_ID,
+    password: process.env.CLIENT_SECRET,
     auth_url:
       "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
     transaction_url:

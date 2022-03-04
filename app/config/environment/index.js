@@ -8,8 +8,6 @@ function requiredProcessEnv(name) {
   }
   return process.env[name];
 }
-
-const convert = require("xml-js");
 const fs = require("fs");
 
 // All configurations will extend these options
