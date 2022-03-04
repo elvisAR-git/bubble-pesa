@@ -110,7 +110,11 @@ module.exports = class LipaNaMpesa {
 
       return this.response;
     } else {
-      console.log("Access Denied");
+      return {
+        is_error: true,
+        message: "Access Denied",
+        response: {},
+      };
     }
   }
 };
