@@ -7,14 +7,14 @@ const moment = require("moment");
 module.exports = class LipaNaMpesa {
   BusinessShortCode = "174379";
   Password =
-    "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMTkxMjEzMTA1NzEz";
+    "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMTYwMjE2MTY1NjI3";
   TimeStamp = moment(new Date()).format("YYYYMMDDHHmmss");
   TransactionType = "CustomerBuyGoodsOnline";
   Amount = "1";
   PartyA = "";
   PartyB = "174379";
   PhoneNumber = "";
-  CallBackURL = "https://www.google.com";
+  CallBackURL = mpesa.callback_url + "lipa-na-mpesa/";
   AccountReference = "";
   TransactionDesc = "";
   transactionId = "";
@@ -52,6 +52,8 @@ module.exports = class LipaNaMpesa {
       mpesa.username,
       mpesa.password
     ).requestAccessToken();
+
+    console.log("Access Granted", access_token);
 
     let trans = {
       BusinessShortCode: this.BusinessShortCode,
