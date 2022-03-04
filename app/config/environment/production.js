@@ -25,6 +25,7 @@ module.exports = {
       "https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest",
     lipa_na_mpesa_online_query_url:
       "https://api.safaricom.co.ke/mpesa/stkpushquery/v1/query",
+    callback_url: `${process.env.APP_URL}/api/v1/callback/`,
   },
   ip: process.env.OPENSHIFT_NODEJS_IP || process.env.IP || "0.0.0.0",
   // Server port
