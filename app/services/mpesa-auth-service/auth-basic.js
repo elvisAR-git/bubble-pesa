@@ -39,7 +39,6 @@ module.exports = class AuthBasic {
       const { access_token, expires_in } = response.data;
       return { access_token, expires_in, message: "access granted" };
     } catch (err) {
-      console.log(err);
       return err;
     }
   }
