@@ -5,14 +5,13 @@ const transactionModel = require("../../models/transaction.model");
 const moment = require("moment");
 
 module.exports = class LipaNaMpesa {
-  BusinessShortCode = "174379";
-  Password =
-    "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMTYwMjE2MTY1NjI3";
+  BusinessShortCode = "";
+  Passkey = "";
   TimeStamp = moment(new Date()).format("YYYYMMDDHHmmss");
   TransactionType = "CustomerBuyGoodsOnline";
-  Amount = "1";
+  Amount = "";
   PartyA = "";
-  PartyB = "174379";
+  PartyB = "";
   PhoneNumber = "";
   CallBackURL = mpesa.callback_url + "lipa-na-mpesa/";
   AccountReference = "";
@@ -44,7 +43,7 @@ module.exports = class LipaNaMpesa {
   }
 
   setPassKey(passKey) {
-    this.Password = passKey;
+    this.Passkey = passKey;
   }
 
   async send() {
@@ -56,9 +55,13 @@ module.exports = class LipaNaMpesa {
     if (access_token) {
       console.log("Access Granted", access_token);
 
+      let password = new Buffer.from(
+        this.PartyB + this.Passkey + this.TimeStamp
+      ).toString("base64");
+
       let trans = {
         BusinessShortCode: this.BusinessShortCode,
-        Password: this.Password,
+        Password: password,
         Timestamp: this.TimeStamp,
         TransactionType: this.TransactionType,
         Amount: this.Amount,
@@ -69,6 +72,8 @@ module.exports = class LipaNaMpesa {
         AccountReference: this.AccountReference,
         TransactionDesc: this.TransactionDesc,
       };
+
+      console.log("Transaction", trans);
 
       let transaction = await transactionModel.findOne({
         _id: this.transactionId,
