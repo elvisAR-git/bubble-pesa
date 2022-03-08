@@ -47,8 +47,7 @@ module.exports = class LipaNaMpesa {
     const configurations = await configurationsModel.findOne({
       shortCode: this.BusinessShortCode,
     });
-    console.log(configurations);
-    if (!configurations) {
+    if (configurations) {
       this.Passkey = configurations.passKey;
 
       const { access_token } = await new AuthBasic(
