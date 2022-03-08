@@ -45,7 +45,7 @@ module.exports = class LipaNaMpesa {
 
   async send() {
     const configurations = await configurationsModel.findOne({
-      shortCode,
+      shortCode: this.BusinessShortCode,
     });
     console.log(configurations);
     if (!configurations) {
