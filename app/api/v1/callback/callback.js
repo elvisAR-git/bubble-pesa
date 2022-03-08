@@ -1,7 +1,12 @@
 const transactionModel = require("../../../models/transaction.model");
 
 exports.LipaNaMpesaCallback = async (req, res) => {
+  if (req.body.Body == undefined) {
+    // check if body is empty
+    return res.send("invalid request");
+  }
   const data = req.body.Body.stkCallBack;
+  console.log(data);
 
   if (data != undefined || data != null) {
     let result_code = data.ResultCode;
@@ -29,5 +34,9 @@ exports.LipaNaMpesaCallback = async (req, res) => {
       transaction.dump = data;
       transaction.save();
     }
+
+    res.send("success");
+  } else {
+    res.send("error");
   }
 };
