@@ -20,7 +20,7 @@ exports.LipaNaMpesaCallback = async (req, res) => {
       transaction.message = data.ResultDesc;
       transaction.response = data;
       transaction.dump = data;
-      transaction.metadata = data.CallbackMetadata;
+      transaction.metaData = data.CallbackMetadata;
       transaction.mpesaReceiptNumber = data.CallbackMetadata.Item[1].value;
       transaction.save();
     } else {
