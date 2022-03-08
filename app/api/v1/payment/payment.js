@@ -1,5 +1,6 @@
 const mpesa = require("../../../config/environment").mpesa;
 const transactionModel = require("../../../models/transaction.model");
+const configurationsModel = require("../../../models/configurations.model");
 const { LipaNaMpesa } = require("../../../services/lipa-na-mpesa");
 const { send_response } = require("../../../common");
 
@@ -22,34 +23,58 @@ exports.lipaNaMpesa = async (req, res) => {
     !partyB ||
     !accountReference
   ) {
-    res.send(send_response({}, true, "All fields are required", 400));
-  } else {
-    let r = await transactionModel.create({
-      innitiator_id,
-      description,
-      beneficiary_id,
-      amount,
-      partyA,
-      partyB,
-      accountReference,
-      status: false,
-    });
-
-    const lipaNaMpesa = new LipaNaMpesa(
-      partyB,
-      `${amount}`,
-      partyA,
-      accountReference,
-      description,
-      r._id
+    res.send(
+      send_response(
+        {},
+        true,
+        "All fields are required, check documentation",
+        400
+      )
     );
+  } else {
+    let configuration = await configurationsModel.findOne({
+      shortCode: partyB,
+    });
+    if (configuration) {
+      let r = await transactionModel.create({
+        innitiator_id,
+        description,
+        beneficiary_id,
+        amount,
+        partyA,
+        partyB,
+        accountReference,
+        status: false,
+        configuration: configuration._id,
+      });
 
-    let response = await lipaNaMpesa.send();
+      const lipaNaMpesa = new LipaNaMpesa(
+        partyB,
+        `${amount}`,
+        partyA,
+        accountReference,
+        description,
+        r._id
+      );
 
-    if (response.is_error) {
-      res.send(send_response(response.response, true, response.message, 400));
+      let response = await lipaNaMpesa.send();
+
+      if (response.is_error) {
+        res.send(send_response(response.response, true, response.message, 400));
+      } else {
+        res.send(
+          send_response(response.response, false, response.message, 200)
+        );
+      }
     } else {
-      res.send(send_response(response.response, false, response.message, 200));
+      res.send(
+        send_response(
+          {},
+          true,
+          "Invalid short code, that short code is not configured yet :(",
+          400
+        )
+      );
     }
   }
 };

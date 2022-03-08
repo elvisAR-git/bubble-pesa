@@ -24,6 +24,7 @@ var TransactionSchema = new Schema(
     description: { type: String, default: null },
     checkout_request_id: { type: String, default: null },
     merchant_request_id: { type: String, default: null },
+    mpesaReceiptNumber: { type: String, default: null },
     configuration: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Configurations",
