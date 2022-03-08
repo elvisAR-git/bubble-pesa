@@ -10,10 +10,8 @@ exports.LipaNaMpesaCallback = async (req, res) => {
 
   if (data != undefined || data != null) {
     let result_code = data.ResultCode;
-
+    let checkout_request_id = data.CheckoutRequestID;
     if (result_code === 0) {
-      let checkout_request_id = data.CheckoutRequestID;
-
       let transaction = await transactionModel.findOne({
         checkout_request_id: checkout_request_id,
       });
@@ -34,7 +32,6 @@ exports.LipaNaMpesaCallback = async (req, res) => {
       transaction.dump = data;
       transaction.save();
     }
-
     res.send("success");
   } else {
     res.send("error");
