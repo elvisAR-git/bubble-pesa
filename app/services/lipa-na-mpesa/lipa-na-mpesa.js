@@ -45,9 +45,9 @@ module.exports = class LipaNaMpesa {
 
   async send() {
     const configurations = await configurationsModel.findOne({
-      shortCode: this.PartyB,
+      shortCode,
     });
-
+    console.log(configurations);
     if (!configurations) {
       this.Passkey = configurations.passKey;
 
