@@ -21,7 +21,7 @@ exports.LipaNaMpesaCallback = async (req, res) => {
       transaction.response = data;
       transaction.dump = data;
       transaction.metadata = data.CallbackMetadata;
-      transaction.mpesaReceiptNumber = data.CallbackMetadata.item[1].value;
+      transaction.mpesaReceiptNumber = data.CallbackMetadata.Item[1].value;
       transaction.save();
     } else {
       let transaction = await transactionModel.findOne({
