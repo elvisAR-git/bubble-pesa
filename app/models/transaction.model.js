@@ -24,6 +24,11 @@ var TransactionSchema = new Schema(
     description: { type: String, default: null },
     checkout_request_id: { type: String, default: null },
     merchant_request_id: { type: String, default: null },
+    configuration: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Configurations",
+      autopopulate: true,
+    },
     dump: { type: Object, default: {} },
     status: { type: Boolean, default: false },
     is_deleted: { type: Boolean, default: false },
