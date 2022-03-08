@@ -5,9 +5,7 @@ exports.LipaNaMpesaCallback = async (req, res) => {
     // check if body is empty
     return res.send("invalid request");
   }
-  req.body = JSON.parse(req.body);
-  console.log(req.body);
-  const data = req.body.Body.stkCallBack;
+  const data = req.body.Body.stkCallback;
   console.log(data);
 
   if (data != undefined || data != null) {
