@@ -71,9 +71,12 @@ exports.lipaNaMpesa = async (req, res) => {
             console.log(next.documentKey._id.toString(), r._id.toString());
             if (next.documentKey._id.toString() === r._id.toString()) {
               console.log(next.documentKey._id, "updated");
-              let updated_document = await transactionModel.find({
-                _id: r._id,
-              });
+              let updated_document = {
+                _id: next.documentKey._id,
+                message: next.updateDescription.updatedFields.message,
+                response: next.updateDescription.updatedFields.response,
+                last_updated: next.updateDescription.updatedFields.last_updated,
+              };
               res.send(
                 send_response(
                   updated_document,
