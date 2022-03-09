@@ -65,22 +65,20 @@ exports.lipaNaMpesa = async (req, res) => {
         const collection = transactionModel.collection;
         const changeStream = collection.watch();
         changeStream.on("change", (next) => {
-          console.log(next);
           // process next document
 
           if (next.operationType === "update") {
             if (next.documentKey._id === r._id) {
-              if (next.updateDescription === "Document updated") {
-                res.send(
-                  send_response(
-                    next.fullDocument.response,
-                    false,
-                    "Transaction completed",
-                    200
-                  )
-                );
-                changeStream.close();
-              }
+              let updated_document = await transactionModel.findById(r._id);
+              res.send(
+                send_response(
+                  updated_document,
+                  false,
+                  "Transaction completed",
+                  200
+                )
+              );
+              changeStream.close();
             }
           }
         });
