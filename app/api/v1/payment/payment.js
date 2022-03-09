@@ -62,9 +62,27 @@ exports.lipaNaMpesa = async (req, res) => {
       if (response.is_error) {
         res.send(send_response(response.response, true, response.message, 400));
       } else {
-        res.send(
-          send_response(response.response, false, response.message, 200)
-        );
+        const collection = db.collection("transactions");
+        const changeStream = collection.watch();
+        changeStream.on("change", (next) => {
+          // process next document
+
+          if (next.operationType === "update") {
+            if (next.documentKey._id === r._id) {
+              if (next.updateDescription === "Document updated") {
+                res.send(
+                  send_response(
+                    next.fullDocument.response,
+                    false,
+                    "Transaction completed",
+                    200
+                  )
+                );
+                changeStream.close();
+              }
+            }
+          }
+        });
       }
     } else {
       res.send(
