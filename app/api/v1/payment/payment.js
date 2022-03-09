@@ -64,7 +64,7 @@ exports.lipaNaMpesa = async (req, res) => {
       } else {
         const collection = transactionModel.collection;
         const changeStream = collection.watch();
-        changeStream.on("change", (next) => {
+        changeStream.on("change", async (next) => {
           // process next document
 
           if (next.operationType === "update") {
