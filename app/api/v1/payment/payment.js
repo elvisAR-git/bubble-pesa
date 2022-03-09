@@ -80,7 +80,6 @@ exports.lipaNaMpesa = async (req, res) => {
               let updated_document = {
                 _id: next.documentKey._id,
                 message: next.updateDescription.updatedFields.message,
-                response: next.updateDescription.updatedFields.response,
                 last_updated: next.updateDescription.updatedFields.last_updated,
               };
               res.send(
