@@ -68,8 +68,8 @@ exports.lipaNaMpesa = async (req, res) => {
           // process next document
 
           if (next.operationType === "update") {
-            console.log(next.documentKey._id, r._id.toString());
-            if (next.documentKey._id === r._id.toString()) {
+            console.log(next.documentKey._id.toString(), r._id.toString());
+            if (next.documentKey._id.toString() === r._id.toString()) {
               console.log(next.documentKey._id, "updated");
               let updated_document = await transactionModel.find({
                 _id: r._id,
