@@ -62,7 +62,7 @@ exports.lipaNaMpesa = async (req, res) => {
       if (response.is_error) {
         res.send(send_response(response.response, true, response.message, 400));
       } else {
-        const collection = db.collection("transactions");
+        const collection = transactionModel.collection;
         const changeStream = collection.watch();
         changeStream.on("change", (next) => {
           // process next document
