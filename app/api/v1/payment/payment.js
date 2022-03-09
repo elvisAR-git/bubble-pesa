@@ -69,7 +69,13 @@ exports.lipaNaMpesa = async (req, res) => {
 
           if (next.operationType === "update") {
             console.log(next.documentKey._id.toString(), r._id.toString());
-            if (next.documentKey._id.toString() === r._id.toString()) {
+            console.log(next.updateDescription.updatedFields);
+            if (
+              next.documentKey._id.toString() === r._id.toString() &&
+              next.updateDescription.updatedFields.response
+                .ResponseDescription !=
+                "Success. Request accepted for processing"
+            ) {
               console.log(next.documentKey._id, "updated");
               let updated_document = {
                 _id: next.documentKey._id,
