@@ -69,7 +69,9 @@ exports.lipaNaMpesa = async (req, res) => {
 
           if (next.operationType === "update") {
             if (next.documentKey._id === r._id) {
-              let updated_document = await transactionModel.findById(r._id);
+              let updated_document = await transactionModel.find({
+                _id: r._id,
+              });
               res.send(
                 send_response(
                   updated_document,
